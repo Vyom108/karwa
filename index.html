@@ -13,7 +13,7 @@
 <body>
   <header class="nav">
     <a class="brand" href="#home"><img class="logo" src="assets/images/karwa-logo-clean.png" alt="Karwa Tours & Travels logo"><span><b>KARWA</b><small>TOURS & TRAVELS</small></span></a>
-    <button class="menu" aria-label="Open menu">☰</button>
+    <button class="menu" aria-label="Open menu" aria-expanded="false">☰</button>
     <nav><a href="#home">Home</a><a href="#fleet">Fleet</a><a href="#services">Services</a><a href="#about">About Us</a><a href="#contact">Contact</a><a class="btn small" href="#booking">Book Now</a></nav>
   </header>
   <main>
@@ -43,6 +43,15 @@
           <div class="row"><label>Pickup Location<input name="pickup" required maxlength="100" placeholder="Diu"></label><label>Destination<input name="destination" maxlength="100" placeholder="Optional"></label></div>
           <div class="row"><label>Travel Date<input type="date" name="date" required></label><label>Return Date<input type="date" name="returnDate"></label></div>
           <label>Message<textarea name="message" maxlength="300" placeholder="Any additional requirements?"></textarea></label>
+          <section id="serviceTerms" class="service-terms" hidden aria-live="polite">
+            <p class="terms-brand" data-terms-brand></p>
+            <h3 data-terms-title></h3>
+            <p class="terms-route" data-terms-route></p>
+            <h4>Terms &amp; Conditions</h4>
+            <ol data-terms-list></ol>
+            <p class="terms-thank-you" data-terms-thank-you></p>
+            <label class="terms-agreement"><input type="checkbox" name="termsAgreement"> <span data-terms-agreement></span></label>
+          </section>
           <p id="error" class="error" role="alert"></p><button class="btn" type="submit">Submit Booking ↗</button>
         </form>
       </aside>
@@ -67,8 +76,7 @@
     <section id="contact" class="cta"><div><p class="eyebrow">LET'S GET MOVING</p><h2>Let's make your<br>journey amazing.</h2><p>Reliable rides. Trusted service.</p></div><div class="contact-info"><p>☎ +91 81400 57861<br>+91 97230 87861</p><p>✉ mansurimakhdum098@gmail.com</p><p>⌖ Diu District - 362520</p><a class="btn" href="#booking">WhatsApp Booking ↗</a></div></section>
   </main>
   <footer><div class="brand"><img class="logo" src="assets/images/karwa-logo-clean.png" alt="Karwa Tours & Travels logo"><span><b>KARWA</b><small>TOURS & TRAVELS</small></span></div><p>© 2026 Karwa Tours & Travels. All Rights Reserved.</p></footer>
+  <script src="js/service-terms.js"></script>
   <script src="js/main.js"></script>
-  <script src="js/date-local.js"></script>
-  <script src="js/bikes.js"></script>
 </body>
 </html>
