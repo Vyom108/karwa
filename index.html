@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Karwa Tours & Travels | Car Rental, Self Drive & Outstation Trips</title>
+  <meta name="description" content="Reliable car and bike rentals, self-drive cars, wedding car hire and comfortable outstation travel services in Diu.">
+  <meta property="og:title" content="Karwa Tours & Travels">
+  <meta property="og:description" content="Your journey, our priority.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="#home"><img class="logo" src="assets/images/karwa-logo-clean.png" alt="Karwa Tours & Travels logo"><span><b>KARWA</b><small>TOURS & TRAVELS</small></span></a>
+    <button class="menu" aria-label="Open menu">☰</button>
+    <nav><a href="#home">Home</a><a href="#fleet">Fleet</a><a href="#services">Services</a><a href="#about">About Us</a><a href="#contact">Contact</a><a class="btn small" href="#booking">Book Now</a></nav>
+  </header>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy"><p class="eyebrow">DIU'S TRUSTED RIDE PARTNER</p><h1>Your Journey,<br><em>Our Priority.</em></h1><p>Car Hire / Car for Rent / Car Hire for<br>Wedding etc...</p><a class="btn" href="#booking">Book Your Ride <span>↗</span></a></div>
+      <div class="hero-image"><div class="image-label">RELIABLE RIDES<br><strong>WHEREVER YOU GO</strong></div><img src="assets/images/hero-indian-road.png" alt="Toyota Innova travelling on an Indian highway"></div>
+    </section>
+    <section class="feature"><div>◉ <strong>24X7 AVAILABLE</strong></div><i></i><div>◎ <strong>SELF DRIVE AVAILABLE FOR DIU</strong></div></section>
+    <section class="split">
+      <div class="content">
+        <p class="eyebrow">TRAVEL YOUR WAY</p><h2>Our Services</h2><div class="orange-line"></div>
+        <div id="services" class="cards">
+          <article><img src="assets/images/service-self-drive.jpg" alt="Car keys for self drive rental"><h3>Self Drive Cars</h3><p>Drive on your terms with our self drive options.</p></article>
+          <article><img src="assets/images/service-rental.jpg" alt="Car available for rent"><h3>Car for Rent</h3><p>Wide range of cars for local & outstation journeys.</p></article>
+          <article><img src="assets/images/service-wedding.jpg" alt="Wedding flowers and celebration"><h3>Car Hire for Wedding</h3><p>Make your special day even more memorable.</p></article>
+          <article><img src="assets/images/service-outstation.webp" alt="Mountain road for an outstation trip"><h3>Outstation Trips</h3><p>Comfortable rides for long journeys.</p></article>
+          <article class="bike-service"><div class="bike-icon" aria-hidden="true">🏍</div><h3>Bikes on Rent</h3><p>Explore Diu by bike for <strong>₹900 / 12 hours</strong>.</p></article>
+        </div>
+      </div>
+      <aside id="booking" class="booking">
+        <h2>Book Your Ride</h2><div class="orange-line"></div>
+        <form id="bookingForm">
+          <label>Name<input name="name" required maxlength="70" placeholder="Your Name"></label>
+          <label>Phone Number<input name="phone" required maxlength="15" inputmode="tel" placeholder="+91 00000 00000"></label>
+          <label>Service<select name="service" required><option value="">Select Service</option><option>Self Drive Cars</option><option>Car for Rent</option><option>Car Hire for Wedding</option><option>Outstation Trips</option><option>Bikes on Rent — ₹900 / 12 hours</option></select></label>
+          <label>Vehicle<select name="vehicle" required><option value="">Select Vehicle</option><option>Innova</option><option>Swift Dzire</option><option>Ertiga</option><option>Innova Crysta</option><option>Etios</option><option>Tempo Traveller</option><option>Force Urbania — 16 Seater</option><option>Kia Carens</option><option>Ford Endeavour</option><option>Mahindra Thar</option><option>Bike — ₹900 / 12 hours</option></select></label>
+          <div class="row"><label>Pickup Location<input name="pickup" required maxlength="100" placeholder="Diu"></label><label>Destination<input name="destination" maxlength="100" placeholder="Optional"></label></div>
+          <div class="row"><label>Travel Date<input type="date" name="date" required></label><label>Return Date<input type="date" name="returnDate"></label></div>
+          <label>Message<textarea name="message" maxlength="300" placeholder="Any additional requirements?"></textarea></label>
+          <p id="error" class="error" role="alert"></p><button class="btn" type="submit">Submit Booking ↗</button>
+        </form>
+      </aside>
+    </section>
+    <section id="fleet" class="fleet">
+      <p class="eyebrow">READY FOR THE ROAD</p><h2>Our Fleet</h2><div class="orange-line"></div>
+      <div class="fleet-grid">
+        <article><div class="car"><img src="assets/images/innova-google.jpg" alt="Toyota Innova car"></div><h3>Innova</h3><button class="outline" data-vehicle="Innova">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/swift-dzire-google.jpg" alt="Maruti Suzuki Swift Dzire car"></div><h3>Swift Dzire</h3><button class="outline" data-vehicle="Swift Dzire">Book Now</button></article>
+        <article><div class="car dark"><img src="assets/images/ertiga-google.jpg" alt="Maruti Suzuki Ertiga car"></div><h3>Ertiga</h3><button class="outline" data-vehicle="Ertiga">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/innova-crysta-google.jpg" alt="Toyota Innova Crysta car"></div><h3>Innova Crysta</h3><button class="outline" data-vehicle="Innova Crysta">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/etios-google.jpg" alt="Toyota Etios car"></div><h3>Etios</h3><button class="outline" data-vehicle="Etios">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/tempo-traveller-google.jpg" alt="Tempo Traveller van"></div><h3>Tempo Traveller</h3><button class="outline" data-vehicle="Tempo Traveller">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/force-urbania-16-seater.jpg" alt="Force Urbania 16 seater"></div><h3>Force Urbania</h3><p class="seat-count">16 Seater</p><button class="outline" data-vehicle="Force Urbania — 16 Seater">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/kia-carens.jpg" alt="Kia Carens"></div><h3>Kia Carens</h3><button class="outline" data-vehicle="Kia Carens">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/ford-endeavour.jpg" alt="Ford Endeavour"></div><h3>Ford Endeavour</h3><button class="outline" data-vehicle="Ford Endeavour">Book Now</button></article>
+        <article><div class="car"><img src="assets/images/mahindra-thar.jpg" alt="Mahindra Thar"></div><h3>Mahindra Thar</h3><button class="outline" data-vehicle="Mahindra Thar">Book Now</button></article>
+        <article class="bike-card"><div class="car bike-visual" aria-label="Bike rental">🏍</div><h3>Bikes on Rent</h3><p class="rate">₹900 / 12 hours</p><button class="outline" data-vehicle="Bike — ₹900 / 12 hours" data-service="Bikes on Rent — ₹900 / 12 hours">Book Now</button></article>
+      </div>
+    </section>
+    <section id="about" class="why"><div><p class="eyebrow">THE KARWA PROMISE</p><h2>Travel with confidence.</h2><p>Professional car rental services for every journey. Comfortable rides, trusted service and a team that is available whenever you need us.</p></div><div class="benefits"><div>▣ <b>Well Maintained Cars</b></div><div>◇ <b>Affordable Pricing</b></div><div>◌ <b>24X7 Support</b></div><div>⬟ <b>Trusted Service</b></div></div></section>
+    <section id="contact" class="cta"><div><p class="eyebrow">LET'S GET MOVING</p><h2>Let's make your<br>journey amazing.</h2><p>Reliable rides. Trusted service.</p></div><div class="contact-info"><p>☎ +91 81400 57861<br>+91 97230 87861</p><p>✉ mansurimakhdum098@gmail.com</p><p>⌖ Diu District - 362520</p><a class="btn" href="#booking">WhatsApp Booking ↗</a></div></section>
+  </main>
+  <footer><div class="brand"><img class="logo" src="assets/images/karwa-logo-clean.png" alt="Karwa Tours & Travels logo"><span><b>KARWA</b><small>TOURS & TRAVELS</small></span></div><p>© 2026 Karwa Tours & Travels. All Rights Reserved.</p></footer>
+  <script src="js/main.js"></script>
+  <script src="js/date-local.js"></script>
+  <script src="js/bikes.js"></script>
+</body>
+</html>

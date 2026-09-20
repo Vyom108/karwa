@@ -1,0 +1,58 @@
+/* Brand logo and bike-rental additions */
+.logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.bike-service {
+  background: var(--ink) !important;
+  color: #fff;
+}
+
+.bike-icon,
+.bike-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #232323, #515151) !important;
+  color: var(--orange);
+  font-size: 64px;
+}
+
+.bike-service .bike-icon {
+  height: 125px;
+}
+
+.bike-service h3,
+.bike-service p {
+  color: #fff;
+}
+
+.bike-service strong,
+.rate {
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.bike-card .rate {
+  margin: -6px 0 12px;
+  font-size: 11px;
+}
+
+.seat-count {
+  margin: -6px 0 12px;
+  color: var(--orange);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .logo { width: 45px; height: 45px; }
+  .bike-service .bike-icon { height: 110px; }
+}
