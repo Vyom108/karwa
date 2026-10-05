@@ -33,6 +33,12 @@
   font-weight: 700;
 }
 
+.scooty-service .bike-icon,
+.scooty-card .bike-visual {
+  color: #fff;
+  background: linear-gradient(135deg, #a93a10, #e84b0f) !important;
+}
+
 .bike-card .rate,
 .seat-count {
   margin: -6px 0 12px;
@@ -121,9 +127,227 @@
   accent-color: var(--orange);
 }
 
+/* Account, booking status, and review experience */
+.nav-auth {
+  padding: 0;
+  color: var(--ink);
+  font: 600 11px Montserrat, Arial, sans-serif;
+  letter-spacing: .2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+}
+
+.nav-auth:hover { color: var(--orange); }
+
+.booking-status {
+  min-height: 14px;
+  margin: 0 0 11px;
+  color: #bdeec9;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.booking-status a {
+  color: #fff;
+  font-weight: 700;
+}
+
+.reviews {
+  padding: 68px 5%;
+  text-align: center;
+  background: #f1efeb;
+}
+
+.reviews h2 {
+  max-width: 680px;
+  margin: 7px auto 18px;
+  font-size: 38px;
+}
+
+.reviews-empty {
+  margin: 0;
+  color: #666;
+  font-size: 13px;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  max-width: 1120px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  background: #fff;
+  border-top: 3px solid var(--orange);
+  box-shadow: 0 5px 14px #0000000c;
+}
+
+.review-stars {
+  margin: 0 0 15px;
+  color: var(--orange);
+  letter-spacing: 2px;
+}
+
+.review-comment {
+  flex: 1;
+  margin: 0 0 20px;
+  font: 17px/1.6 Georgia, serif;
+}
+
+.review-name {
+  margin: 0;
+  color: #555;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.review-name time {
+  color: #888;
+  font-weight: 500;
+}
+
+.site-dialog {
+  position: relative;
+  width: min(440px, calc(100% - 32px));
+  padding: 30px;
+  color: var(--ink);
+  background: var(--cream);
+  border: 0;
+  box-shadow: 0 20px 80px #0008;
+}
+
+.site-dialog::backdrop { background: #111b; }
+
+.site-dialog h2 {
+  margin: 8px 0 12px;
+  font-size: 31px;
+}
+
+.site-dialog > p:not(.eyebrow),
+.site-dialog form > label {
+  color: #555;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.site-dialog form { margin-top: 20px; }
+
+.site-dialog label {
+  display: block;
+  margin: 12px 0;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.site-dialog input,
+.site-dialog select,
+.site-dialog textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 12px;
+  font: 13px Montserrat, Arial, sans-serif;
+  border: 1px solid #d7d2cc;
+  background: #fff;
+}
+
+.site-dialog textarea {
+  min-height: 105px;
+  resize: vertical;
+}
+
+.site-dialog .btn { width: 100%; }
+
+.dialog-close {
+  position: absolute;
+  top: 11px;
+  right: 13px;
+  padding: 2px 7px;
+  color: #555;
+  background: transparent;
+  border: 0;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.dialog-message {
+  min-height: 18px;
+  margin: 10px 0;
+  color: #327646;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.dialog-message.is-error { color: #b93606; }
+
+.text-button {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 0;
+  color: var(--orange);
+  background: transparent;
+  border: 0;
+  font: 700 11px Montserrat, Arial, sans-serif;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.my-bookings {
+  max-height: 390px;
+  overflow-y: auto;
+}
+
+.booking-item {
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.booking-item h3,
+.booking-item p {
+  margin: 0;
+}
+
+.booking-item h3 {
+  font: 600 17px Georgia, serif;
+}
+
+.booking-item > p:not(.booking-state):not(.review-pending) {
+  margin-top: 5px;
+  color: #666;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.booking-state,
+.review-pending {
+  display: inline-block;
+  margin-top: 8px !important;
+  padding: 4px 7px;
+  color: #555;
+  background: #e6e3df;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+}
+
+.booking-state.is-completed { color: #14632d; background: #d9eddf; }
+.booking-state.is-cancelled { color: #9b2c10; background: #f9ddd2; }
+.booking-item .outline { display: block; margin-top: 10px; }
+
 /* Tablet adjustments */
 @media (max-width: 900px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* Phone adjustments */
@@ -200,6 +424,7 @@
   .booking input, .booking select, .booking textarea, .booking label, .row { min-width: 0; }
   .booking input, .booking select, .booking textarea { font-size: 13px; }
   .row { grid-template-columns: 1fr; gap: 0; }
+  .nav-auth { font-size: 12px; }
 
   .service-terms { margin-top: 16px; padding: 15px; }
   .service-terms h3 { font-size: 16px; }
@@ -212,6 +437,14 @@
   .car { height: 105px; }
   .fleet h3 { font-size: 14px; }
   .outline { min-width: 100%; padding: 10px 8px; font-size: 9px; }
+
+  .reviews { padding: 48px 5%; }
+  .reviews h2 { font-size: 30px; }
+  .reviews-grid { grid-template-columns: 1fr; }
+  .review-card { padding: 20px; }
+
+  .site-dialog { padding: 26px 20px; }
+  .site-dialog h2 { font-size: 27px; }
 
   .why { padding: 42px 7%; }
   .benefits { grid-template-columns: 1fr; gap: 8px; }

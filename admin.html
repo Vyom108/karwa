@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Karwa Tours & Travels | Admin</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header class="nav">
+    <a class="brand" href="index.html"><img class="logo" src="assets/images/karwa-logo-clean.png" alt="Karwa Tours & Travels logo"><span><b>KARWA</b><small>ADMIN DASHBOARD</small></span></a>
+    <a class="btn small" href="index.html">View website</a>
+  </header>
+  <main class="admin-main">
+    <p class="eyebrow">PRIVATE AREA</p>
+    <h1>Bookings &amp; reviews</h1>
+    <p id="adminStatus" class="admin-status" role="status">Checking your secure admin session…</p>
+    <section class="admin-section">
+      <div class="admin-heading"><div><p class="eyebrow">CUSTOMER REQUESTS</p><h2>Bookings</h2></div><button id="refreshBookings" class="outline" type="button">Refresh</button></div>
+      <div id="bookingAdminList" class="admin-list"></div>
+    </section>
+    <section class="admin-section">
+      <div class="admin-heading"><div><p class="eyebrow">CUSTOMER FEEDBACK</p><h2>Reviews awaiting approval</h2></div><button id="refreshReviews" class="outline" type="button">Refresh</button></div>
+      <div id="reviewAdminList" class="admin-list"></div>
+    </section>
+  </main>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
