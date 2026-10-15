@@ -46,8 +46,13 @@ document.querySelector('#adminForgotPassword').addEventListener('click', async (
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: 'https://karwatours.com/reset-password.html'
   });
-  status.textContent = error
-    ? 'We could not send a password email. Ask the site owner to resend the invitation.'
-    : 'If the account is eligible, password instructions will arrive by email.';
+  const rateLimited = error && (error.status === 429
+    || ['over_email_send_rate_limit', 'email_rate_limit_exceeded'].includes(String(error.code || '').toLowerCase())
+    || /email rate limit exceeded/i.test(String(error.message || '')));
+  status.textContent = rateLimited
+    ? 'Supabase is temporarily limiting email delivery. Wait before retrying; the site owner needs to configure custom email delivery.'
+    : error
+      ? 'We could not send a password email. Ask the site owner to check Auth email settings.'
+      : 'If the account is eligible, password instructions will arrive by email.';
   button.disabled = false;
 });
