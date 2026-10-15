@@ -353,7 +353,7 @@ async function handleRecoverySubmit(event) {
   setDialogMessage('#recoveryMessage', '');
   try {
     const email = new FormData(recoveryForm).get('email').trim();
-    const redirectTo = new URL('/reset-password.html', window.location.origin).toString();
+    const redirectTo = 'https://karwatours.com/reset-password.html';
     const { error: recoveryError } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
     if (recoveryError) {
       setDialogMessage('#recoveryMessage', 'We could not send a reset link right now. Please try again shortly.', true);
