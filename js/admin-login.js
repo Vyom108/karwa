@@ -44,7 +44,7 @@ document.querySelector('#adminForgotPassword').addEventListener('click', async (
   button.disabled = true;
   status.classList.remove('is-error');
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/reset-password.html`
+    redirectTo: 'https://karwatours.com/reset-password.html'
   });
   status.textContent = error
     ? 'We could not send a password email. Ask the site owner to resend the invitation.'
