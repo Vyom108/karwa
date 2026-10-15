@@ -22,13 +22,13 @@ The existing authorized user should sign in with the password they already contr
 
 ## Auth settings
 
-Password recovery uses Supabase Auth email delivery and redirects to `/reset-password.html` on the current site origin. In **Authentication → URL Configuration**, set the production Site URL to the canonical deployed origin and allow the exact reset URL, for example:
+Password recovery uses the fixed production redirect `https://karwatours.com/reset-password.html`. In **Authentication → URL Configuration**, set the production **Site URL** to `https://karwatours.com` (never localhost) and add this exact entry under **Redirect URLs**:
 
 - `https://karwatours.com/reset-password.html`
 - Add `https://www.karwatours.com/reset-password.html` only if that hostname is an active site alias.
 - Add the matching local development reset URL while testing locally.
 
-Confirm the password recovery email template links back to Supabase's supplied redirect URL. The project currently has Supabase's **Leaked Password Protection Disabled** security advisory; enable it if the plan supports it, then review the resulting Auth settings.
+If recovery emails still land on localhost, first verify that the exact URL above is saved under Redirect URLs; Supabase falls back to Site URL when a requested redirect is not allowlisted. Check **Authentication → Email Templates → Reset Password** too: use Supabase's `{{ .ConfirmationURL }}` or the supplied `{{ .RedirectTo }}` value, and remove any hardcoded `localhost:3000` URL. Request a new reset email after saving changes; previously sent links cannot be repaired. The project currently has Supabase's **Leaked Password Protection Disabled** security advisory; enable it if the plan supports it, then review the resulting Auth settings.
 
 ## Policy copy needing owner decisions
 
