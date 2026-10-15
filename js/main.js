@@ -216,7 +216,6 @@ async function loadPublicReviews() {
     const { data, error: requestError } = await publicSupabase
       .from('reviews')
       .select('reviewer_name, rating, comment, created_at')
-      .eq('status', 'approved')
       .order('created_at', { ascending: false })
       .limit(6);
     if (requestError || !data) return;
