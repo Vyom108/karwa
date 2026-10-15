@@ -133,6 +133,16 @@ function setDialogMessage(id, message, isError = false) {
   element.classList.toggle('is-error', isError);
 }
 
+function isEmailSendRateLimited(error) {
+  return error?.status === 429
+    || ['over_email_send_rate_limit', 'email_rate_limit_exceeded'].includes(String(error?.code || '').toLowerCase())
+    || /email rate limit exceeded/i.test(String(error?.message || ''));
+}
+
+function emailRateLimitMessage() {
+  return 'Email sending is temporarily rate-limited. Wait before trying again. The site owner needs to configure custom email delivery for sign-up and password emails.';
+}
+
 function updateAuthButton() {
   authButton.textContent = currentUser ? 'My account' : 'Log in';
 }
@@ -313,7 +323,7 @@ async function handleAuthSubmit(event) {
   try {
     let response;
     if (signup) {
-      const redirectUrl = ['http:', 'https:'].includes(window.location.protocol) ? window.location.href : undefined;
+      const redirectUrl = 'https://karwatours.com/';
       response = await supabase.auth.signUp({
         email: data.email.trim(),
         password: data.password,
@@ -326,9 +336,12 @@ async function handleAuthSubmit(event) {
       response = await supabase.auth.signInWithPassword({ email: data.email.trim(), password: data.password });
     }
     if (response.error) {
-      setDialogMessage('#authMessage', signup
-        ? 'We could not create the account. Check the details and try again.'
-        : 'We could not log you in. Check your details or use password recovery.', true);
+      const message = signup && isEmailSendRateLimited(response.error)
+        ? emailRateLimitMessage()
+        : signup
+          ? 'We could not create the account. Check the details and try again.'
+          : 'We could not log you in. Check your details or use password recovery.';
+      setDialogMessage('#authMessage', message, true);
       return;
     }
     if (signup && !response.data.session) {
@@ -355,7 +368,10 @@ async function handleRecoverySubmit(event) {
     const redirectTo = 'https://karwatours.com/reset-password.html';
     const { error: recoveryError } = await supabase.auth.resetPasswordForEmail(email, { redirectTo });
     if (recoveryError) {
-      setDialogMessage('#recoveryMessage', 'We could not send a reset link right now. Please try again shortly.', true);
+      const message = isEmailSendRateLimited(recoveryError)
+        ? emailRateLimitMessage()
+        : 'We could not send a reset link right now. Please try again shortly.';
+      setDialogMessage('#recoveryMessage', message, true);
       return;
     }
     setDialogMessage('#recoveryMessage', 'If an account can be recovered with that address, a reset link will arrive by email.');
