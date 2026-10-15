@@ -2,11 +2,13 @@
 
 ## Database migration
 
-`supabase/migrations/20261015033913_secure_booking_and_review_access.sql` restores the narrowly scoped booking/review privileges needed by the browser app, preserves RLS, restricts customer inserts to their own pending requests, and limits status changes to authorized staff. It also enforces the current service/vehicle pairs, phone formatting, local travel-date rules, and a per-user retry token.
+`supabase/migrations/20261015041521_secure_booking_and_review_access.sql` restores the narrowly scoped booking/review privileges needed by the browser app, preserves RLS, restricts customer inserts to their own pending requests, and limits status changes to authorized staff. It also enforces the current service/vehicle pairs, phone formatting, local travel-date rules, and a per-user retry token.
 
-The migration has **not** been applied to the production database. The connected Karwa project was inspected read-only. Its current remote migration history lists `20261005113956` and `20261005114027`, but those migration files are absent from the repository's `main` branch. Recover/reconcile those historical migrations before using `supabase db push`; do not mark history as repaired without checking the corresponding SQL and live schema. Review the new migration, apply it first to a development database, then verify grants, RLS policies, and the booking/review flows before production.
+The migration was applied successfully to the production project and is recorded as `20261015041521_secure_booking_and_review_access`. Its checks confirm anonymous users cannot read bookings, customer insert grants exclude the status column, only admins can update status under RLS, approved public reviews expose only approved columns, and the booking transition trigger is active.
 
-At initial inspection the production `admin_users` table was empty. After you supplied the client email, I verified it matched an existing, email-confirmed Auth user and granted that user the `admin_users` role. The membership is verified in the database; no password was created, changed, or recorded. This role grant is live in production now, while the updated dashboard code and new migration remain local and have not been deployed/applied. The local site has a dedicated `/admin-login.html` route. Sign-in is role-checked with `is_admin()` before the dashboard opens, and RLS remains the actual data protection boundary.
+The production history still includes earlier versions `20261005113956` and `20261005114027` whose source files are absent from `main`. Recover/reconcile those historical migrations before future use of `supabase db push`; do not mark history repaired without comparing the original SQL and live schema.
+
+At initial inspection the production `admin_users` table was empty. After you supplied the client email, I verified it matched an existing, email-confirmed Auth user and granted that user the `admin_users` role. The membership is verified in the database; no password was created, changed, or recorded. The role, updated dashboard, and dedicated `/admin-login.html` route are now live on the production site. Sign-in is role-checked with `is_admin()` before the dashboard opens, and RLS remains the actual data protection boundary.
 
 For any future admin account or to replace this authorized account:
 
@@ -16,7 +18,7 @@ For any future admin account or to replace this authorized account:
 4. Send/resend the Supabase invitation to that same address. The client opens the invite link, sets a password on `/reset-password.html`, then signs in at `/admin-login.html`. Confirm `is_admin()` returns true for that signed-in user.
 5. To revoke access, delete only that user's row from `public.admin_users`; then ask them to sign out. RLS will deny admin queries immediately after the role row is removed.
 
-The existing authorized user should sign in with the password they already control. If they need to set a new password, wait until the reset route is deployed and its exact production URL is allowed in Supabase Auth, then use the reset option at `/admin-login.html`. Never place the service-role key in site code. The `admin_users` table is inaccessible to `anon` and `authenticated`; manage roles through Supabase Dashboard SQL Editor or another trusted database-admin channel.
+The existing authorized user should sign in with the password they already control. If they need to set a new password, ensure the exact production URL is allowed in Supabase Auth, then use the reset option at `/admin-login.html`. Never place the service-role key in site code. The `admin_users` table is inaccessible to `anon` and `authenticated`; manage roles through Supabase Dashboard SQL Editor or another trusted database-admin channel.
 
 ## Auth settings
 
@@ -43,8 +45,8 @@ No cancellation deadline, refund promise, or legal identity has been invented in
 ## Verification checklist
 
 1. Run `npm test` for the booking validation unit tests.
-2. Apply the migration to a development Supabase project and verify that `anon` cannot read bookings, customers can only read their own rows, customer inserts create `pending` requests, status edits require an admin, and public review queries expose only approved review fields.
-3. The specified existing user now has a verified `admin_users` membership. After the site code is deployed, sign in at `/admin-login.html`. Confirm a normal customer and a signed-out visitor are rejected, while this authorized user can access `/admin.html`.
+2. The migration is applied to production. For future schema changes, reconcile the missing historical migration files before using `supabase db push`.
+3. The specified existing user now has a verified `admin_users` membership. Sign in at `https://karwatours.com/admin-login.html`. Confirm a normal customer and a signed-out visitor are rejected, while this authorized user can access `/admin.html`.
 4. Set the Auth URL allowlist and email template, request a password reset with a test account, and test both a valid link and an expired/used link.
 5. On the deployed domain, test the WhatsApp link manually with a test request only after a development database is configured. Do not create a production booking just to verify the code.
 6. Review the policy placeholders with the business owner before making those pages public as final policies.
