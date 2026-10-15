@@ -12,18 +12,26 @@
 <body>
   <header class="nav">
     <a class="brand" href="index.html"><img class="logo" src="assets/images/karwa-logo-clean.png" alt="Karwa Tours & Travels logo"><span><b>KARWA</b><small>ADMIN DASHBOARD</small></span></a>
-    <a class="btn small" href="index.html">View website</a>
+    <div class="admin-nav-actions"><a class="btn small" href="index.html">View website</a><button class="outline" id="adminLogout" type="button">Log out</button></div>
   </header>
   <main class="admin-main">
     <p class="eyebrow">PRIVATE AREA</p>
     <h1>Bookings &amp; reviews</h1>
     <p id="adminStatus" class="admin-status" role="status">Checking your secure admin session…</p>
-    <section class="admin-section">
-      <div class="admin-heading"><div><p class="eyebrow">CUSTOMER REQUESTS</p><h2>Bookings</h2></div><button id="refreshBookings" class="outline" type="button">Refresh</button></div>
+    <section class="admin-section" aria-labelledby="bookingHeading">
+      <div class="admin-heading"><div><p class="eyebrow">CUSTOMER REQUESTS</p><h2 id="bookingHeading">Bookings</h2></div><button id="refreshBookings" class="outline" type="button">Refresh</button></div>
+      <form id="bookingFilters" class="admin-filters" aria-label="Filter bookings">
+        <label>Search<input name="search" type="search" placeholder="Name, phone, route or note"></label>
+        <label>Status<select name="status"><option value="">All statuses</option><option>pending</option><option>confirmed</option><option>completed</option><option>cancelled</option></select></label>
+        <label>Service<select name="service"><option value="">All services</option></select></label>
+        <label>Vehicle<select name="vehicle"><option value="">All vehicles</option></select></label>
+        <label>Travel date<input name="date" type="date"></label>
+        <button class="outline" type="reset">Clear filters</button>
+      </form>
       <div id="bookingAdminList" class="admin-list"></div>
     </section>
-    <section class="admin-section">
-      <div class="admin-heading"><div><p class="eyebrow">CUSTOMER FEEDBACK</p><h2>Reviews awaiting approval</h2></div><button id="refreshReviews" class="outline" type="button">Refresh</button></div>
+    <section class="admin-section" aria-labelledby="reviewsHeading">
+      <div class="admin-heading"><div><p class="eyebrow">CUSTOMER FEEDBACK</p><h2 id="reviewsHeading">Customer reviews</h2></div><button id="refreshReviews" class="outline" type="button">Refresh</button></div>
       <div id="reviewAdminList" class="admin-list"></div>
     </section>
   </main>

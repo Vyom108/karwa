@@ -154,6 +154,34 @@
   font-weight: 700;
 }
 
+.booking-status > * { margin: 10px 0; }
+.booking-status .whatsapp-continue { color: #fff; text-align: center; }
+.booking-status:focus { outline: 2px solid var(--orange); outline-offset: 4px; }
+
+.booking-guidance {
+  margin: 18px 0 22px;
+  padding: 14px;
+  color: #eee;
+  background: #292929;
+  border-left: 3px solid var(--orange);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.booking-guidance p { margin: 0; }
+.booking-guidance p + p { margin-top: 12px; }
+.booking-auth-actions { display: flex; gap: 18px; }
+.booking-auth-actions .text-button { width: auto; margin: 9px 0; }
+.booking-policy-note { color: #ccc; font-size: 10px; line-height: 1.6; }
+.booking-policy-note a { color: #fff; }
+.field-error { display: block; min-height: 0; margin-top: 4px; color: #ffb29a; font-size: 10px; line-height: 1.4; }
+.field-error:empty { display: none; }
+.booking [aria-invalid="true"] { outline: 2px solid #ff8d69; outline-offset: 1px; }
+.booking .btn:disabled,
+.site-dialog .btn:disabled,
+.reset-form .btn:disabled { opacity: .65; cursor: wait; transform: none; }
+.text-button[hidden] { display: none; }
+
 .reviews {
   padding: 68px 5%;
   text-align: center;

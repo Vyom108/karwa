@@ -8,3 +8,14 @@ export const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     detectSessionInUrl: true
   }
 });
+
+// Keep public review reads anonymous even when a customer is logged in. This
+// lets the database expose only the approved, public review columns to anon.
+export const publicSupabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false,
+    storageKey: 'karwa-public-reviews'
+  }
+});
