@@ -22,14 +22,17 @@ The existing authorized user should sign in with the password they already contr
 
 ## Auth settings
 
-Password recovery uses the fixed production redirect `https://karwatours.com/reset-password.html`. In **Authentication → URL Configuration**, set the production **Site URL** to `https://karwatours.com` (never localhost) and add this exact entry under **Redirect URLs**:
+Production recovery and signup confirmation links use the canonical site, `https://karwatours.com`. In **Authentication → URL Configuration**:
 
-- `https://karwatours.com/reset-password.html`
-- Add `https://www.karwatours.com/reset-password.html` only if that hostname is an active site alias.
-- Add the matching local development reset URL while testing locally.
+- Set **Site URL** to `https://karwatours.com`.
+- Add `https://karwatours.com/reset-password.html` and `https://karwatours.com/` to **Redirect URLs**.
+- Add localhost redirect URLs only for local development. Remove any hardcoded localhost target from **Authentication → Email Templates**; use Supabase's supplied confirmation URL / redirect value.
 
-If recovery emails still land on localhost, first verify that the exact URL above is saved under Redirect URLs; Supabase falls back to Site URL when a requested redirect is not allowlisted. Check **Authentication → Email Templates → Reset Password** too: use Supabase's `{{ .ConfirmationURL }}` or the supplied `{{ .RedirectTo }}` value, and remove any hardcoded `localhost:3000` URL. Request a new reset email after saving changes; previously sent links cannot be repaired. The project currently has Supabase's **Leaked Password Protection Disabled** security advisory; enable it if the plan supports it, then review the resulting Auth settings.
+Auth logs showed `429 email rate limit exceeded` for both signup confirmation and password recovery. The project was using Supabase's default email sender, which has a very low send limit and is intended for testing. Configure a verified custom SMTP provider in **Authentication → SMTP Settings** before retrying signup or recovery emails. Enter SMTP credentials only in the Supabase Dashboard; never commit them or send them in chat. After setup, request one fresh email. Links already sent cannot be repaired.
 
+See [Supabase custom SMTP setup](https://supabase.com/docs/guides/auth/auth-smtp) and [redirect URL configuration](https://supabase.com/docs/guides/auth/redirect-urls).
+
+The project currently has Supabase's **Leaked Password Protection Disabled** security advisory; enable it if the plan supports it, then review the resulting Auth settings.
 ## Policy copy needing owner decisions
 
 The policy pages intentionally mark details that were not verified in the repository. Before deploying them as final business policies, complete:
