@@ -475,15 +475,25 @@ setMinimumDates();
 renderServiceTerms();
 loadPublicReviews();
 
-document.querySelector('.menu').addEventListener('click', () => {
-  const navigation = document.querySelector('nav');
+const menuButton = document.querySelector('.menu');
+const navigation = document.querySelector('.nav nav');
+function closeMobileNavigation() {
+  navigation.classList.remove('open');
+  menuButton.setAttribute('aria-expanded', 'false');
+  menuButton.setAttribute('aria-label', 'Open menu');
+}
+menuButton.addEventListener('click', () => {
   const isOpen = navigation.classList.toggle('open');
-  document.querySelector('.menu').setAttribute('aria-expanded', String(isOpen));
+  menuButton.setAttribute('aria-expanded', String(isOpen));
+  menuButton.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
 });
-document.querySelectorAll('nav a').forEach((link) => link.addEventListener('click', () => {
-  document.querySelector('nav').classList.remove('open');
-  document.querySelector('.menu').setAttribute('aria-expanded', 'false');
-}));
+navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileNavigation));
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && navigation.classList.contains('open')) {
+    closeMobileNavigation();
+    menuButton.focus();
+  }
+});
 serviceField.addEventListener('change', () => {
   renderServiceTerms();
   clearFieldErrors();

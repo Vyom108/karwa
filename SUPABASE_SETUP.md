@@ -53,3 +53,37 @@ No cancellation deadline, refund promise, or legal identity has been invented in
 4. Set the Auth URL allowlist and email template, request a password reset with a test account, and test both a valid link and an expired/used link.
 5. On the deployed domain, test the WhatsApp link manually with a test request only after a development database is configured. Do not create a production booking just to verify the code.
 6. Review the policy placeholders with the business owner before making those pages public as final policies.
+
+## Audit fixes in this branch (not yet deployed)
+
+The current application labels bikes at ₹700 per 12 hours, while the production-applied `20261015041521_secure_booking_and_review_access` migration's compatibility check still accepts ₹900 bike labels. The new forward-only migration `20261018181355_align_bike_booking_labels.sql` adds and validates the matching ₹700/₹600 compatibility rule, then removes only the old service/vehicle check. It does not update booking rows, drop RLS, or alter other columns. Production schema inspection found one existing car booking and no bike or scooty bookings. The migration was applied to production after approval; it validated successfully and did not rewrite booking rows. If validation fails because a historical row has an unexpected service/vehicle value, the transaction rolls back and no records are rewritten.
+
+`20261018181358_revoke_direct_review_trigger_function.sql` removes direct `authenticated` execution from `set_review_display_name()` only. The function remains attached to its existing review insert trigger. `is_admin()` and `can_review_booking()` keep their `authenticated` grants because RLS policies call them. PostgreSQL documents that a role needs `EXECUTE` when creating a trigger; the permission change does not remove or replace the trigger. This migration was applied to production after verifying the existing trigger and grants. Direct `authenticated` execution is now revoked, while the trigger itself and the helper grants remain intact.
+
+Two older production migrations (`20261005113956` and `20261005114027`) are still absent from this repository, and their SQL could not be recovered from repository history. Do not run `supabase db push` from this checkout until those originals are recovered from a trusted backup or the schema/migration state has been reconciled and reviewed. `supabase/config.toml` now disables seeding because the referenced `supabase/seed.sql` is absent and no safe seed contents are known. The local Auth redirect allow-list now uses HTTP for both loopback hostnames, matching the local `site_url`; production Auth settings remain unchanged. Local Supabase CLI/Docker/PostgreSQL are not part of this checkout's available environment, so no disposable-database migration run is claimed.
+
+## Owner-only actions still pending
+
+- Supabase Dashboard → Authentication → Security and Protection: enable leaked-password protection if the project plan supports it. Supabase documents this feature as available on paid plans; this project was shown on the Free plan at review time. Recheck the current plan and setting in the Dashboard. [Supabase password security](https://supabase.com/docs/guides/auth/password-security).
+- The two reviewed SQL migrations have been applied to production and verified; keep this repository’s migration filenames aligned with Supabase migration history.
+- Supply and approve the missing business policy information listed above before treating any policy page as final. Those pages remain visibly marked as drafts and are set `noindex` until approved.
+- Review and deploy this branch before verifying live security headers, `/robots.txt`, `/sitemap.xml`, responsive rendering, and reset/confirmation URLs. The Vercel header configuration only takes effect after deployment.
+
+## Image and release details
+
+The hero's original PNG remains intact for fallback. New responsive WebP versions are used through `<picture>`; the 1376px WebP is about 71 KB compared with the original PNG's about 2.3 MB. The logo WebP is about 5.5 KB compared with the source PNG's about 568 KB. The social preview is 1200×630 JPEG. Do not remove source images until a deployed visual comparison confirms the alternatives.
+
+`@supabase/supabase-js` remains a browser-native CDN module because this site has no bundler/build pipeline. The import is pinned to `2.118.0`; the browser still depends on esm.sh availability. No service-role credential is present in client code.
+
+## Suggested safe rollout and rollback
+
+1. Recover/reconcile the two missing migration sources before using the normal linked migration workflow. Back up the live schema and booking data.
+2. Review the two new SQL files and check the live `public.bookings` constraint/rows and `set_review_display_name` trigger/ACL. Apply the booking compatibility migration and function-grant migration through the authorized Supabase process only after approval. Confirm both migration history and runtime checks.
+3. Deploy the website branch to a Vercel preview. Exercise the booking/auth/review flows, mobile layouts, CSP console/network requests, social preview, and the sitemap/robots responses. Approve production promotion only after review.
+4. Roll back the Vercel deployment to the previous deployment if the UI, auth, CSP, or headers fail. The booking migration can be rolled back by restoring the prior compatibility constraint (after confirming all current rows satisfy it); the grant migration can be rolled back by granting `EXECUTE` back to `authenticated`. Keep the new constraints and RLS in place during rollback planning; do not reset the database.
+
+## Local verification
+
+- `node --test` runs the repository's tests plus static checks for the new booking migration, assets, SEO routes, and header/hash consistency.
+- `node --check` can validate each JavaScript file. Use the project's existing static hosting setup for a local browser preview; this repository has no production build step.
+- The two approved production database migrations were applied and verified. No website deployment or production Auth dashboard change was performed.
