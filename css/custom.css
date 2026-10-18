@@ -512,14 +512,14 @@ nav a {
 
 .btn:hover,
 .outline:hover,
-button:hover {
+button:not(.text-button):not(.dialog-close):not(.nav-auth):not(.menu):hover {
   box-shadow: 0 7px 18px #17171720;
   transform: translateY(-2px);
 }
 
 .btn:active,
 .outline:active,
-button:active {
+button:not(.text-button):not(.dialog-close):not(.nav-auth):not(.menu):active {
   box-shadow: none;
   transform: translateY(1px) scale(.985);
 }
