@@ -18,9 +18,9 @@ export const CAR_VEHICLES = [
   'Mahindra Thar'
 ];
 
-export const BIKE_SERVICE = 'Bikes on Rent — ₹900 / 12 hours';
+export const BIKE_SERVICE = 'Bikes on Rent — ₹700 / 12 hours';
 export const SCOOTY_SERVICE = 'Scooty on Rent — ₹600 / 12 hours';
-export const BIKE_VEHICLE = 'Bike — ₹900 / 12 hours';
+export const BIKE_VEHICLE = 'Bike — ₹700 / 12 hours';
 export const SCOOTY_VEHICLE = 'Scooty — ₹600 / 12 hours';
 
 export const SERVICE_VEHICLES = Object.freeze({
