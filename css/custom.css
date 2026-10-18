@@ -268,6 +268,8 @@
 
 .site-dialog form { margin-top: 20px; }
 
+.site-dialog label[hidden] { display: none; }
+
 .site-dialog label {
   display: block;
   margin: 12px 0;
