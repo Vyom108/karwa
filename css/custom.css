@@ -488,6 +488,42 @@
   .logo { width: 45px; height: 45px; }
 }
 
+/* Keep the contact links legible over the dark photo treatment. */
+.contact-info a:not(.btn) {
+  color: #fff;
+  text-decoration: none;
+  text-underline-offset: 3px;
+}
+
+.contact-info a:not(.btn):hover,
+.contact-info a:not(.btn):focus-visible {
+  color: #ffc0a9;
+  text-decoration: underline;
+}
+
+.contact-info a:not(.btn):focus-visible {
+  outline: 2px solid #ffc0a9;
+  outline-offset: 3px;
+}
+
+/* Stack the contact card before its two columns become cramped. */
+@media (max-width: 760px) {
+  .cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    margin: 30px 5%;
+    padding: 30px 7%;
+    text-align: center;
+  }
+
+  .cta > div { min-width: 0; }
+  .cta h2 { margin: 6px 0 12px; font-size: clamp(30px, 6vw, 38px); }
+  .contact-info { font-size: 13px; }
+  .contact-info p { margin: 0 0 11px; }
+  .contact-info .btn { display: block; width: min(100%, 300px); margin: 14px auto 0; }
+}
+
 @media (max-width: 359px) {
   .logo { width: 39px; height: 39px; }
   .brand b { font-size: 15px; }

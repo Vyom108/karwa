@@ -49,6 +49,13 @@ test('homepage and public contact actions use verified phone, email, and booking
   assert.match(html, /href="#booking">Request a Booking/);
 });
 
+test('contact links stay readable and the contact card stacks on narrow screens', async () => {
+  const css = await read('css/custom.css');
+  assert.match(css, /\.contact-info a:not\(\.btn\)\s*\{[^}]*color:\s*#fff;[^}]*text-decoration:\s*none;/s);
+  assert.match(css, /\.contact-info a:not\(\.btn\):focus-visible/);
+  assert.match(css, /@media\s*\(max-width:\s*760px\)\s*\{[\s\S]*?\.cta\s*\{[^}]*display:\s*grid;[^}]*grid-template-columns:\s*minmax\(0,\s*1fr\)/);
+});
+
 test('public SEO files exclude private pages and point to canonical host', async () => {
   const robots = await read('robots.txt');
   const sitemap = await read('sitemap.xml');
