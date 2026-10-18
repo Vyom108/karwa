@@ -493,3 +493,190 @@
   .fleet-grid { grid-template-columns: 1fr; }
   .car { height: 135px; }
 }
+
+
+/* Subtle motion polish */
+html { scroll-behavior: smooth; }
+
+.btn,
+.outline,
+button,
+nav a {
+  transition:
+    color .18s ease,
+    background-color .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    transform .18s ease;
+}
+
+.btn:hover,
+.outline:hover,
+button:hover {
+  box-shadow: 0 7px 18px #17171720;
+  transform: translateY(-2px);
+}
+
+.btn:active,
+.outline:active,
+button:active {
+  box-shadow: none;
+  transform: translateY(1px) scale(.985);
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--orange) 70%, white);
+  outline-offset: 3px;
+}
+
+nav a:not(.btn) {
+  position: relative;
+}
+
+nav a:not(.btn)::after {
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: var(--orange);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .18s ease;
+}
+
+nav a:not(.btn):hover::after,
+nav a:not(.btn):focus-visible::after {
+  transform: scaleX(1);
+}
+
+.menu[aria-expanded="true"] {
+  transform: rotate(90deg);
+}
+
+.cards article,
+.fleet-grid article,
+.review-card {
+  transition: box-shadow .24s ease, transform .24s ease;
+}
+
+.cards img,
+.car img {
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1);
+}
+
+.booking input,
+.booking select,
+.booking textarea,
+.site-dialog input,
+.site-dialog select,
+.site-dialog textarea {
+  transition: border-color .18s ease, box-shadow .18s ease, background-color .18s ease;
+}
+
+.booking input:focus,
+.booking select:focus,
+.booking textarea:focus,
+.site-dialog input:focus,
+.site-dialog select:focus,
+.site-dialog textarea:focus {
+  border-color: var(--orange);
+  box-shadow: 0 0 0 3px #e84b0f22;
+}
+
+.booking select option:checked,
+.site-dialog select option:checked {
+  color: #fff;
+  background: #e84b0f;
+}
+
+.site-dialog[open] {
+  animation: karwa-dialog-in .2s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.site-dialog[open]::backdrop {
+  animation: karwa-backdrop-in .2s ease-out both;
+}
+
+.dialog-close:hover {
+  color: var(--orange);
+  transform: rotate(90deg);
+}
+
+.field-error:not(:empty),
+.booking-status > * {
+  animation: karwa-message-in .22s ease-out both;
+}
+
+.hero-copy {
+  animation: karwa-rise-in .45s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.hero-image {
+  animation: karwa-rise-in .55s .08s cubic-bezier(.2, .75, .25, 1) both;
+}
+
+.motion-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.2, .75, .25, 1);
+}
+
+.motion-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes karwa-rise-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes karwa-dialog-in {
+  from { opacity: 0; transform: translateY(8px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes karwa-backdrop-in {
+  from { background-color: #1110; }
+  to { background-color: #111b; }
+}
+
+@keyframes karwa-message-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .cards article:hover,
+  .fleet-grid article:hover,
+  .review-card:hover {
+    box-shadow: 0 12px 28px #17171718;
+    transform: translateY(-4px);
+  }
+
+  .cards article:hover img,
+  .fleet-grid article:hover .car img {
+    transform: scale(1.035);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+
+  .motion-reveal,
+  .motion-reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
