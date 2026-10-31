@@ -29,6 +29,42 @@ const reviewDialog = document.querySelector('#reviewDialog');
 const authButton = document.querySelector('#authButton');
 let currentUser = null;
 let isSubmittingBooking = false;
+let bookingStep = 1;
+
+function setBookingStep(step, shouldFocus = false) {
+  bookingStep = step;
+  document.querySelectorAll('[data-booking-step]').forEach((section) => {
+    const active = Number(section.dataset.bookingStep) === step;
+    section.hidden = !active;
+    section.classList.toggle('is-active', active);
+  });
+  document.querySelectorAll('[data-booking-progress]').forEach((item) => {
+    const itemStep = Number(item.dataset.bookingProgress);
+    item.classList.toggle('is-current', itemStep === step);
+    item.classList.toggle('is-complete', itemStep < step);
+    if (itemStep === step) item.setAttribute('aria-current', 'step');
+    else item.removeAttribute('aria-current');
+  });
+  if (shouldFocus) {
+    const heading = document.querySelector(`[data-booking-step="${step}"] .booking-step-heading h3`);
+    heading?.focus({ preventScroll: true });
+    document.querySelector('#booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+function continueBooking() {
+  clearFieldErrors();
+  const data = Object.fromEntries(new FormData(form));
+  const allErrors = validateBooking(data);
+  const journeyFields = new Set(['service', 'vehicle', 'pickup', 'destination', 'date', 'returnDate']);
+  const errors = Object.fromEntries(Object.entries(allErrors).filter(([name]) => journeyFields.has(name)));
+  if (Object.keys(errors).length) {
+    showValidationErrors(errors);
+    return false;
+  }
+  setBookingStep(2, true);
+  return true;
+}
 
 function createRequestToken() {
   if (window.crypto?.randomUUID) return window.crypto.randomUUID();
@@ -115,8 +151,14 @@ function showValidationErrors(errors) {
   if (termsError) termsError.textContent = errors.terms || '';
   error.textContent = entries.length ? 'Please review the highlighted fields.' : '';
   const firstInvalid = entries.length ? form.elements[entries[0][0]] : null;
-  if (errors.terms) termsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  else firstInvalid?.focus();
+  if (errors.terms) {
+    setBookingStep(2);
+    termsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else if (firstInvalid) {
+    const stepSection = firstInvalid.closest('[data-booking-step]');
+    if (stepSection && stepSection.hidden) setBookingStep(Number(stepSection.dataset.bookingStep));
+    firstInvalid.focus();
+  }
 }
 
 function openDialog(dialog) {
@@ -385,6 +427,10 @@ async function handleRecoverySubmit(event) {
 async function handleBookingSubmit(event) {
   event.preventDefault();
   if (isSubmittingBooking) return;
+  if (bookingStep === 1) {
+    continueBooking();
+    return;
+  }
   clearFieldErrors();
   bookingStatus.replaceChildren();
   const data = Object.fromEntries(new FormData(form));
@@ -425,6 +471,7 @@ async function handleBookingSubmit(event) {
     const bookingId = await saveBooking(payload);
     showBookingSuccess(bookingId, data);
     form.reset();
+    setBookingStep(1);
     termsSection.hidden = true;
     agreement.required = false;
     renderVehicleOptions();
@@ -498,6 +545,8 @@ serviceField.addEventListener('change', () => {
   renderServiceTerms();
   clearFieldErrors();
 });
+document.querySelector('[data-booking-next]').addEventListener('click', continueBooking);
+document.querySelector('[data-booking-back]').addEventListener('click', () => setBookingStep(1, true));
 dateField.addEventListener('change', () => {
   setMinimumDates();
   clearFieldErrors();
@@ -513,6 +562,7 @@ form.querySelectorAll('input, select, textarea').forEach((field) => field.addEve
 document.querySelectorAll('[data-vehicle]').forEach((button) => button.addEventListener('click', () => {
   const requestedVehicle = button.dataset.vehicle;
   const requestedService = button.dataset.service;
+  setBookingStep(1);
   if (requestedService) serviceField.value = requestedService;
   renderServiceTerms();
   if ([...vehicleField.options].some((option) => option.value === requestedVehicle)) {

@@ -37,7 +37,7 @@
   <main>
     <section id="home" class="hero">
       <div class="hero-copy"><p class="eyebrow"><span class="eyebrow-dot"></span> MADE FOR THE WAY YOU TRAVEL <span class="eyebrow-place">· DIU, INDIA</span></p><h1>Go further.<br><em>Feel at home.</em></h1><p class="hero-intro">From a slow morning by the sea to the long road ahead, find a ride that feels just right.</p><div class="hero-actions"><a class="btn" href="#booking">Plan your journey <span>↗</span></a><a class="text-link" href="#fleet">Explore the fleet <span>↓</span></a></div><div class="hero-note"><span>✳</span><span>Local knowledge.<br><strong>Thoughtful journeys.</strong></span></div></div>
-      <div class="hero-image"><div class="image-label">THE OPEN ROAD, YOURS TO DISCOVER<br><strong>Start somewhere beautiful.</strong></div><picture><source type="image/webp" srcset="assets/images/hero-indian-road-640.webp 640w, assets/images/hero-indian-road-1376.webp 1376w" sizes="(max-width: 900px) 100vw, 58vw"><img src="assets/images/hero-indian-road.png" width="1376" height="768" fetchpriority="high" decoding="async" alt="Coastal road winding along the sea at sunset"></picture></div>
+      <div class="hero-image"><div class="image-label">THE OPEN ROAD, YOURS TO DISCOVER<br><strong>Start somewhere beautiful.</strong></div><picture><source type="image/webp" srcset="assets/images/karwa-coastal-hero.webp" sizes="(max-width: 900px) 100vw, 58vw"><img src="assets/images/karwa-coastal-hero.webp" width="1672" height="940" fetchpriority="high" decoding="async" alt="A quiet coastal road along the Arabian Sea at sunset, with a car beginning a journey from Diu"></picture><span class="hero-index" aria-hidden="true">01 <i></i> DIU, GUJARAT</span></div>
     </section>
     <section class="feature"><div><span>✳</span> Here when you need us <strong>Available 24 hours</strong></div><i></i><div><span>⌁</span> Take the wheel <strong>Self-drive in Diu</strong></div><i></i><div><span>↗</span> Make it your own <strong>Rides made around you</strong></div></section>
     <section class="split">
@@ -53,33 +53,37 @@
         </div>
       </div>
       <aside id="booking" class="booking">
-        <h2>Book Your Ride</h2><div class="orange-line"></div>
-        <div class="booking-guidance">
-          <p><strong>An account is required</strong> to send a booking request. You can log in or create one now; your form details will stay in place while you do.</p>
-          <div class="booking-auth-actions">
-            <button class="text-button" type="button" data-open-auth="login">Log in</button>
-            <button class="text-button" type="button" data-open-auth="signup">Create account</button>
-          </div>
-          <p>A request is not a confirmed reservation. Karwa will check availability and confirm the final price with you on WhatsApp.</p>
-        </div>
+        <div class="booking-heading"><div><p class="eyebrow">A FEW DETAILS, THEN WE’LL TAKE IT FROM HERE</p><h2>Plan your ride.</h2></div><span class="booking-secure"><i aria-hidden="true">✳</i> Secure request</span></div>
+        <ol class="booking-progress" aria-label="Booking steps">
+          <li class="is-current" data-booking-progress="1" aria-current="step"><span>01</span> Your journey</li>
+          <li data-booking-progress="2"><span>02</span> Your details</li>
+        </ol>
         <form id="bookingForm" novalidate>
-          <label>Name<input name="name" required maxlength="70" autocomplete="name" placeholder="Your Name" aria-describedby="error-name"><small class="field-error" id="error-name" data-field-error="name"></small></label>
-          <label>Phone Number<input name="phone" type="tel" required maxlength="20" inputmode="tel" autocomplete="tel" placeholder="+91 00000 00000" aria-describedby="error-phone"><small class="field-error" id="error-phone" data-field-error="phone"></small></label>
-          <label>Service<select name="service" required aria-describedby="error-service"><option value="">Select Service</option><option>Self Drive Cars</option><option>Car for Rent</option><option>Car Hire for Wedding</option><option>Outstation Trips</option><option>Bikes on Rent — ₹700 / 12 hours</option><option>Scooty on Rent — ₹600 / 12 hours</option></select><small class="field-error" id="error-service" data-field-error="service"></small></label>
-          <label>Vehicle<select name="vehicle" required aria-describedby="error-vehicle"><option value="">Select Service First</option></select><small class="field-error" id="error-vehicle" data-field-error="vehicle"></small></label>
-          <div class="row"><label>Pickup Location<input name="pickup" required maxlength="100" autocomplete="street-address" placeholder="Diu" aria-describedby="error-pickup"><small class="field-error" id="error-pickup" data-field-error="pickup"></small></label><label>Destination<input name="destination" maxlength="100" placeholder="Optional" aria-describedby="error-destination"><small class="field-error" id="error-destination" data-field-error="destination"></small></label></div>
-          <div class="row"><label>Travel Date<input type="date" name="date" required aria-describedby="error-date"><small class="field-error" id="error-date" data-field-error="date"></small></label><label>Return Date<input type="date" name="returnDate" aria-describedby="error-returnDate"><small class="field-error" id="error-returnDate" data-field-error="returnDate"></small></label></div>
-          <label>Message<textarea name="message" maxlength="300" placeholder="Any additional requirements?" aria-describedby="error-message"></textarea><small class="field-error" id="error-message" data-field-error="message"></small></label>
-          <section id="serviceTerms" class="service-terms" hidden aria-live="polite">
-            <p class="terms-brand" data-terms-brand></p>
-            <h3 data-terms-title></h3>
-            <p class="terms-route" data-terms-route></p>
-            <h4>Terms &amp; Conditions</h4>
-            <ol data-terms-list></ol>
-            <p class="terms-thank-you" data-terms-thank-you></p>
-            <label class="terms-agreement"><input type="checkbox" name="termsAgreement"> <span data-terms-agreement></span></label><small class="field-error" id="error-terms" data-field-error="terms"></small>
+          <section class="booking-step is-active" data-booking-step="1" aria-labelledby="bookingStepOneTitle">
+            <div class="booking-step-heading"><span>01</span><div><h3 id="bookingStepOneTitle" tabindex="-1">Where are you headed?</h3><p>Choose a ride and tell us when and where.</p></div></div>
+            <label>Service<select name="service" required aria-describedby="error-service"><option value="">Select Service</option><option>Self Drive Cars</option><option>Car for Rent</option><option>Car Hire for Wedding</option><option>Outstation Trips</option><option>Bikes on Rent — ₹700 / 12 hours</option><option>Scooty on Rent — ₹600 / 12 hours</option></select><small class="field-error" id="error-service" data-field-error="service"></small></label>
+            <label>Preferred vehicle<select name="vehicle" required aria-describedby="error-vehicle"><option value="">Select Service First</option></select><small class="field-error" id="error-vehicle" data-field-error="vehicle"></small></label>
+            <div class="row"><label>Pickup location<input name="pickup" required maxlength="100" autocomplete="street-address" placeholder="Diu" aria-describedby="error-pickup"><small class="field-error" id="error-pickup" data-field-error="pickup"></small></label><label>Destination <span class="optional-label">Optional</span><input name="destination" maxlength="100" placeholder="Where to?" aria-describedby="error-destination"><small class="field-error" id="error-destination" data-field-error="destination"></small></label></div>
+            <div class="row"><label>Travel date<input type="date" name="date" required aria-describedby="error-date"><small class="field-error" id="error-date" data-field-error="date"></small></label><label>Return date <span class="optional-label">Optional</span><input type="date" name="returnDate" aria-describedby="error-returnDate"><small class="field-error" id="error-returnDate" data-field-error="returnDate"></small></label></div>
+            <button class="btn booking-next" type="button" data-booking-next>Continue to your details <span>→</span></button>
           </section>
-          <p id="error" class="error" role="alert" aria-live="assertive"></p><div id="bookingStatus" class="booking-status" role="status" aria-live="polite" tabindex="-1"></div><button class="btn" type="submit">Send Booking Request ↗</button>
+          <section class="booking-step" data-booking-step="2" aria-labelledby="bookingStepTwoTitle" hidden>
+            <div class="booking-step-heading"><span>02</span><div><h3 id="bookingStepTwoTitle" tabindex="-1">Who’s travelling?</h3><p>We’ll use these details to confirm availability.</p></div></div>
+            <div class="row"><label>Your name<input name="name" required maxlength="70" autocomplete="name" placeholder="Full name" aria-describedby="error-name"><small class="field-error" id="error-name" data-field-error="name"></small></label><label>Phone number<input name="phone" type="tel" required maxlength="20" inputmode="tel" autocomplete="tel" placeholder="+91 00000 00000" aria-describedby="error-phone"><small class="field-error" id="error-phone" data-field-error="phone"></small></label></div>
+            <label>Anything else we should know? <span class="optional-label">Optional</span><textarea name="message" maxlength="300" placeholder="Add a note for your journey" aria-describedby="error-message"></textarea><small class="field-error" id="error-message" data-field-error="message"></small></label>
+            <section id="serviceTerms" class="service-terms" hidden aria-live="polite">
+              <p class="terms-brand" data-terms-brand></p>
+              <h3 data-terms-title></h3>
+              <p class="terms-route" data-terms-route></p>
+              <h4>Terms &amp; Conditions</h4>
+              <ol data-terms-list></ol>
+              <p class="terms-thank-you" data-terms-thank-you></p>
+              <label class="terms-agreement"><input type="checkbox" name="termsAgreement"> <span data-terms-agreement></span></label><small class="field-error" id="error-terms" data-field-error="terms"></small>
+            </section>
+            <div class="booking-guidance"><p><strong>An account is required</strong> to send your request. Log in or create one here; your details will stay in place.</p><div class="booking-auth-actions"><button class="text-button" type="button" data-open-auth="login">Log in</button><button class="text-button" type="button" data-open-auth="signup">Create account</button></div><p>Your request is not a confirmed reservation. Karwa will check availability and confirm the final price with you on WhatsApp.</p></div>
+            <div class="booking-step-actions"><button class="booking-back" type="button" data-booking-back>← Back to journey</button><button class="btn" type="submit">Send booking request <span>↗</span></button></div>
+          </section>
+          <p id="error" class="error" role="alert" aria-live="assertive"></p><div id="bookingStatus" class="booking-status" role="status" aria-live="polite" tabindex="-1"></div>
           <p class="booking-policy-note">Before sending a request, review our <a href="terms.html">Booking Terms</a> and <a href="privacy.html">Privacy Policy</a>. Cancellation and refund information is in our <a href="cancellation.html">Cancellation Policy</a> and <a href="refund.html">Refund Policy</a>.</p>
         </form>
       </aside>
