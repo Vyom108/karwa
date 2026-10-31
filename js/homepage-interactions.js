@@ -61,31 +61,70 @@ const heroImage = document.querySelector('#heroVehicleImage');
 const heroCaption = document.querySelector('#heroVehicleCaption');
 const heroName = document.querySelector('#heroVehicleName');
 const heroIndex = document.querySelector('#heroVehicleIndex');
+const heroTotal = document.querySelector('#heroVehicleTotal');
 const heroVehicles = [
   {
-    src: 'assets/images/karwa-hero-car.webp',
-    alt: 'Illustrative concept: generic premium navy car, not a Karwa vehicle',
-    title: 'A car for your day',
-    photo: false
+    src: 'assets/images/fleet-innova.webp',
+    alt: 'Illustrative vehicle concept: Innova',
+    title: 'Innova'
+  },
+  {
+    src: 'assets/images/fleet-swift-dzire.webp',
+    alt: 'Illustrative vehicle concept: Swift Dzire',
+    title: 'Swift Dzire'
+  },
+  {
+    src: 'assets/images/fleet-ertiga.webp',
+    alt: 'Illustrative vehicle concept: Ertiga',
+    title: 'Ertiga'
+  },
+  {
+    src: 'assets/images/fleet-innova-crysta.webp',
+    alt: 'Illustrative vehicle concept: Innova Crysta',
+    title: 'Innova Crysta'
+  },
+  {
+    src: 'assets/images/fleet-etios.webp',
+    alt: 'Illustrative vehicle concept: Etios',
+    title: 'Etios'
+  },
+  {
+    src: 'assets/images/fleet-force-urbania.webp',
+    alt: 'Illustrative vehicle concept: Force Urbania, listed as 16 seater',
+    title: 'Force Urbania · 16 Seater'
+  },
+  {
+    src: 'assets/images/fleet-kia-carens.webp',
+    alt: 'Illustrative vehicle concept: Kia Carens',
+    title: 'Kia Carens'
+  },
+  {
+    src: 'assets/images/fleet-ford-endeavour.webp',
+    alt: 'Illustrative vehicle concept: Ford Endeavour',
+    title: 'Ford Endeavour'
+  },
+  {
+    src: 'assets/images/fleet-mahindra-thar.webp',
+    alt: 'Illustrative vehicle concept: Mahindra Thar',
+    title: 'Mahindra Thar'
   },
   {
     src: 'assets/images/fleet-bike.webp',
-    alt: 'Illustrative concept: motorcycle on Diu’s coastal road',
-    title: 'A bike for Diu',
-    photo: true
+    alt: 'Illustrative vehicle concept: a generic commuter motorcycle; Karwa does not specify a model',
+    title: 'Bikes on Rent'
   },
   {
     src: 'assets/images/fleet-scooty.webp',
-    alt: 'Illustrative concept: scooty on Diu’s coastal road',
-    title: 'A scooty for Diu',
-    photo: true
+    alt: 'Illustrative vehicle concept: a generic commuter scooty; Karwa does not specify a model',
+    title: 'Scooty on Rent'
   }
 ];
 
-if (heroVisual && heroImage && heroCaption && heroName && heroIndex) {
+if (heroVisual && heroImage && heroCaption && heroName && heroIndex && heroTotal) {
   let activeHeroVehicle = 0;
   let heroTimer;
   let transitionId = 0;
+  heroTotal.textContent = String(heroVehicles.length).padStart(2, '0');
 
   const showHeroVehicle = (index) => {
     activeHeroVehicle = (index + heroVehicles.length) % heroVehicles.length;
@@ -100,7 +139,6 @@ if (heroVisual && heroImage && heroCaption && heroName && heroIndex) {
       heroImage.removeEventListener('error', revealVehicle);
       if (hasRevealed || thisTransition !== transitionId) return;
       hasRevealed = true;
-      heroVisual.classList.toggle('is-photo', vehicle.photo);
       heroImage.alt = vehicle.alt;
       heroName.textContent = vehicle.title;
       heroIndex.textContent = String(activeHeroVehicle + 1).padStart(2, '0');
@@ -120,7 +158,7 @@ if (heroVisual && heroImage && heroCaption && heroName && heroIndex) {
     const startHeroCycle = () => {
       window.clearInterval(heroTimer);
       if (document.hidden) return;
-      heroTimer = window.setInterval(() => showHeroVehicle(activeHeroVehicle + 1), 5200);
+      heroTimer = window.setInterval(() => showHeroVehicle(activeHeroVehicle + 1), 4200);
     };
     document.addEventListener('visibilitychange', startHeroCycle);
     startHeroCycle();
