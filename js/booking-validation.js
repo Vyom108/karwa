@@ -11,7 +11,6 @@ export const CAR_VEHICLES = [
   'Ertiga',
   'Innova Crysta',
   'Etios',
-  'Tempo Traveller',
   'Force Urbania — 16 Seater',
   'Kia Carens',
   'Ford Endeavour',

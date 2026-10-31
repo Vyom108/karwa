@@ -524,21 +524,45 @@ loadPublicReviews();
 
 const menuButton = document.querySelector('.menu');
 const navigation = document.querySelector('.nav nav');
-function closeMobileNavigation() {
+const mobileMenuQuery = window.matchMedia('(max-width: 900px)');
+function closeMobileNavigation(restoreFocus = false) {
+  const wasOpen = navigation.classList.contains('open');
   navigation.classList.remove('open');
+  document.body.classList.remove('menu-open');
   menuButton.setAttribute('aria-expanded', 'false');
   menuButton.setAttribute('aria-label', 'Open menu');
+  if (restoreFocus && wasOpen) menuButton.focus();
 }
 menuButton.addEventListener('click', () => {
   const isOpen = navigation.classList.toggle('open');
+  document.body.classList.toggle('menu-open', isOpen);
   menuButton.setAttribute('aria-expanded', String(isOpen));
   menuButton.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+  if (isOpen) navigation.querySelector('a, button')?.focus();
 });
-navigation.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMobileNavigation));
+navigation.querySelectorAll('a, button').forEach((item) => item.addEventListener('click', () => closeMobileNavigation()));
+mobileMenuQuery.addEventListener('change', (event) => {
+  if (!event.matches) closeMobileNavigation();
+});
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && navigation.classList.contains('open')) {
-    closeMobileNavigation();
-    menuButton.focus();
+  if (!navigation.classList.contains('open')) return;
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    closeMobileNavigation(true);
+    return;
+  }
+  if (event.key !== 'Tab') return;
+  const focusable = [...navigation.querySelectorAll('a[href], button:not(:disabled)')]
+    .filter((item) => item.getClientRects().length);
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && (document.activeElement === first || document.activeElement === menuButton)) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
   }
 });
 serviceField.addEventListener('change', () => {
