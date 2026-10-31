@@ -55,6 +55,78 @@ if (quickForm && bookingForm) {
   });
 }
 
+// The hero cycles automatically through the ride categories.
+const heroVisual = document.querySelector('#heroVisual');
+const heroImage = document.querySelector('#heroVehicleImage');
+const heroCaption = document.querySelector('#heroVehicleCaption');
+const heroName = document.querySelector('#heroVehicleName');
+const heroIndex = document.querySelector('#heroVehicleIndex');
+const heroVehicles = [
+  {
+    src: 'assets/images/karwa-hero-car.webp',
+    alt: 'Illustrative concept: generic premium navy car, not a Karwa vehicle',
+    title: 'A car for your day',
+    photo: false
+  },
+  {
+    src: 'assets/images/fleet-bike.webp',
+    alt: 'Illustrative concept: motorcycle on Diu’s coastal road',
+    title: 'A bike for Diu',
+    photo: true
+  },
+  {
+    src: 'assets/images/fleet-scooty.webp',
+    alt: 'Illustrative concept: scooty on Diu’s coastal road',
+    title: 'A scooty for Diu',
+    photo: true
+  }
+];
+
+if (heroVisual && heroImage && heroCaption && heroName && heroIndex) {
+  let activeHeroVehicle = 0;
+  let heroTimer;
+  let transitionId = 0;
+
+  const showHeroVehicle = (index) => {
+    activeHeroVehicle = (index + heroVehicles.length) % heroVehicles.length;
+    const vehicle = heroVehicles[activeHeroVehicle];
+    const thisTransition = ++transitionId;
+    let hasRevealed = false;
+    heroImage.classList.add('is-changing');
+    heroVisual.classList.add('is-switching');
+
+    const revealVehicle = () => {
+      heroImage.removeEventListener('load', revealVehicle);
+      heroImage.removeEventListener('error', revealVehicle);
+      if (hasRevealed || thisTransition !== transitionId) return;
+      hasRevealed = true;
+      heroVisual.classList.toggle('is-photo', vehicle.photo);
+      heroImage.alt = vehicle.alt;
+      heroName.textContent = vehicle.title;
+      heroIndex.textContent = String(activeHeroVehicle + 1).padStart(2, '0');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (thisTransition !== transitionId) return;
+        heroImage.classList.remove('is-changing');
+        heroVisual.classList.remove('is-switching');
+      }));
+    };
+
+    heroImage.addEventListener('load', revealVehicle);
+    heroImage.addEventListener('error', revealVehicle);
+    heroImage.src = vehicle.src;
+  };
+
+  if (!reducedMotion) {
+    const startHeroCycle = () => {
+      window.clearInterval(heroTimer);
+      if (document.hidden) return;
+      heroTimer = window.setInterval(() => showHeroVehicle(activeHeroVehicle + 1), 5200);
+    };
+    document.addEventListener('visibilitychange', startHeroCycle);
+    startHeroCycle();
+  }
+}
+
 const serviceCarousel = document.querySelector('#serviceCarousel');
 const previousService = document.querySelector('[data-carousel-prev]');
 const nextService = document.querySelector('[data-carousel-next]');

@@ -38,19 +38,17 @@ header.nav>nav a:not(.btn):hover,.nav-auth:hover{color:var(--orange)}
 .hero-copy h1{margin:27px 0 19px;color:white;font:900 clamp(74px,10.2vw,145px)/.78 var(--display);letter-spacing:-.055em;text-transform:uppercase}
 .hero-copy h1 em{display:inline-block;margin-top:8px;color:var(--orange);font-style:normal}
 .hero-subline{max-width:470px;margin:0;color:#e5eaf0;font-size:16px;line-height:1.7}
-.hero-categories{display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
-.hero-category{display:inline-flex;align-items:center;gap:15px;min-height:42px;padding:9px 14px;border:1px solid #ffffff4a;border-radius:999px;background:transparent;color:#f3f6fa;font:700 12px var(--sans);cursor:pointer;transition:background .25s ease,border-color .25s ease,color .25s ease,transform .25s ease}
-.hero-category span{color:var(--teal);font-size:14px;transition:transform .25s ease}
-.hero-category:hover{transform:translateY(-2px);border-color:var(--teal)}
-.hero-category.is-selected{border-color:var(--orange);background:var(--orange);color:var(--navy)}
-.hero-category.is-selected span{color:var(--navy);transform:translate(2px,-2px)}
-.hero-service-note{display:flex;align-items:center;gap:13px;margin:30px 0 0;color:#c6d0dc;font:700 9px var(--sans);letter-spacing:.11em}
-.hero-service-note i{width:3px;height:3px;border-radius:50%;background:var(--teal)}
 .hero-visual{position:relative;min-width:0}
-.hero-image-frame{position:relative;display:grid;place-items:center;min-height:390px;aspect-ratio:1.44/1;overflow:hidden;border:1px solid #ffffff1c;border-radius:7px;background:linear-gradient(145deg,#102e52,#0b2545 73%);box-shadow:0 34px 80px #06182a50}
+.hero-image-frame{position:relative;display:grid;place-items:center;min-height:390px;aspect-ratio:1.44/1;overflow:hidden;border:1px solid #ffffff1c;border-radius:7px;background:linear-gradient(145deg,#102e52,#0b2545 73%);box-shadow:0 34px 80px #06182a50;transition:background-color .8s ease}
 .hero-image-frame::before{position:absolute;inset:0;content:"";background:radial-gradient(ellipse at 62% 55%,#139a8c42,transparent 50%),linear-gradient(135deg,#ffffff0b,transparent 42%)}
-.hero-vehicle{position:relative;z-index:1;width:100%;height:100%;padding:26px;object-fit:contain;filter:drop-shadow(0 20px 24px #06182a72);transition:opacity .22s ease,transform .45s cubic-bezier(.2,.75,.25,1)}
-.hero-vehicle.is-changing{opacity:.02;transform:translateX(-18px) scale(.98)}
+.hero-vehicle{position:relative;z-index:1;width:100%;height:100%;padding:26px;object-fit:contain;filter:drop-shadow(0 20px 24px #06182a72);transition:opacity .75s cubic-bezier(.22,.68,0,1),transform .95s cubic-bezier(.2,.75,.25,1)}
+.hero-vehicle.is-changing{opacity:0;transform:translateY(14px) scale(.96)}
+.hero-visual .hero-image-caption{transition:opacity .45s ease,transform .6s cubic-bezier(.2,.75,.25,1)}
+.hero-visual.is-switching .hero-image-caption{opacity:0;transform:translateY(7px)}
+.hero-visual.is-photo .hero-image-frame{background:#0b2545}
+.hero-visual.is-photo .hero-image-frame::before{background:linear-gradient(180deg,#0b25451a,transparent 48%,#0b254566)}
+.hero-visual.is-photo .hero-vehicle{width:100%;height:100%;padding:0;object-fit:cover;filter:saturate(.88) contrast(1.02);}
+.hero-visual.is-photo .hero-image-glow{display:none}
 .hero-visual.is-framed .hero-image-frame{background:var(--navy)}
 .hero-visual.is-framed .hero-image-frame::after{position:absolute;z-index:2;inset:35% 0 0;content:"";background:linear-gradient(0deg,#071a32e8,transparent)}
 .hero-visual.is-framed .hero-vehicle{width:100%;padding:0;object-fit:cover}
@@ -262,6 +260,16 @@ header.nav>nav a:not(.btn):hover,.nav-auth:hover{color:var(--orange)}
 .site-dialog label{display:block;margin:14px 0;color:#203b57;font-size:11px;font-weight:700}
 .site-dialog .btn{width:100%}
 .dialog-close{color:var(--navy)}
+.account-dialog{width:min(94vw,620px);max-width:min(94vw,620px);padding:34px 36px 28px}
+.account-dialog h2{margin:10px 0 22px;font-size:clamp(38px,7vw,48px)}
+.account-dialog .eyebrow{color:#294665;font-size:11px}
+.my-bookings{display:grid;gap:12px;max-height:52vh;padding:2px 3px 5px;overflow:auto}
+.booking-item{padding:17px 18px;border:1px solid #cbd4de;border-radius:5px;background:#fff;box-shadow:0 5px 16px #0b25450d}
+.booking-item h3{margin:0 0 7px;color:#0b2545;font:700 22px/1.2 var(--sans);letter-spacing:-.02em}
+.booking-item p{margin:6px 0;color:#40546a;font-size:13px;line-height:1.5}
+.booking-item .booking-state,.booking-item .review-pending{display:table;width:max-content;max-width:100%;margin-top:10px;padding:5px 9px;border:1px solid #a7d4ce;border-radius:3px;background:#e8f5f2;color:#075d54;font-size:12px;font-weight:700}
+.booking-item .review-pending{border-color:#f1c1ad;background:#fff0e9;color:#853813}
+.account-dialog #signOutButton{margin-top:20px;color:#075d54;font-size:13px;font-weight:700}
 @media(max-width:1100px){
  .nav{padding-inline:4%}.nav nav{gap:14px}.hero-main{gap:40px}.hero-copy h1{font-size:clamp(72px,10vw,112px)}
  .quick-booking-bar{grid-template-columns:repeat(2,minmax(0,1fr))}.quick-booking-submit{width:100%}
@@ -317,9 +325,6 @@ header.nav>nav a:not(.btn):hover,.nav-auth:hover{color:var(--orange)}
  .hero-location{font-size:8px;letter-spacing:.1em}
  .hero-copy h1{margin:23px 0 14px;font-size:clamp(62px,16vw,88px)}
  .hero-subline{font-size:14px}
- .hero-categories{gap:7px;margin-top:24px}
- .hero-category{min-height:40px;padding:8px 12px;font-size:11px}
- .hero-service-note{gap:8px;margin-top:23px;font-size:7px}
  .hero-image-frame{min-height:220px;aspect-ratio:1.1/1}
  .hero-vehicle{padding:10px}
  .hero-image-caption{margin-top:10px}
@@ -388,8 +393,6 @@ header.nav>nav a:not(.btn):hover,.nav-auth:hover{color:var(--orange)}
 .hero-location,.story-copy .eyebrow,.contact-message .eyebrow,.fleet-heading .eyebrow,.bento-stat .eyebrow{color:#e1e8ef}
 .hero-copy h1 em,.section-heading h2 em,.fleet-heading h2 em,.diu-copy h2 em,.journey-heading h2 em,.faq-heading h2 em,.contact-message h2 em{color:inherit}
 .story-copy h2 em{color:#fff}
-.hero-category.is-selected{border-color:var(--teal);background:#ffffff12;color:white;box-shadow:inset 0 0 0 1px var(--teal)}
-.hero-category.is-selected span{color:var(--teal)}
 .welcome-strip>div>span{color:var(--teal)}
 .service-rate>div p{color:white}
 .bento-stat strong{color:white}
