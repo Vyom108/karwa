@@ -5,7 +5,7 @@
   updateNav();
   window.addEventListener('scroll', updateNav, { passive: true });
   if (motionPreference.matches || !('IntersectionObserver' in window)) return;
-  const sections = document.querySelectorAll('.hero-copy, .hero-image, .feature, .split, .cards article, .booking, .fleet, .fleet-grid article, .why, .reviews, .cta');
+  const sections = document.querySelectorAll('.hero-copy, .hero-image, .feature, .split, .cards article, .booking, .fleet, .fleet-grid article, .why, .destination, .journey-steps, .journey-step-grid li, .reviews, .faq, .cta');
   sections.forEach((section) => {
     section.classList.add('motion-reveal');
     if (section.matches('.cards article, .fleet-grid article')) {
