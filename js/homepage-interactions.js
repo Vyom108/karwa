@@ -11,6 +11,51 @@ const quickVehicle = document.querySelector('#quickVehicle');
 const quickPickup = quickForm?.elements.pickup;
 const quickDate = quickForm?.elements.date;
 const bookingForm = document.querySelector('#bookingForm');
+const bookingCard = document.querySelector('#booking');
+const bookingToggle = document.querySelector('#mobileBookingToggle');
+const mobileBookingMedia = matchMedia('(max-width: 820px)');
+let browseScrollPosition = 0;
+
+function syncMobileBookingState() {
+  if (!mobileBookingMedia.matches) {
+    document.body.classList.remove('mobile-booking-open');
+    bookingToggle?.setAttribute('aria-expanded', 'false');
+    if (bookingToggle) bookingToggle.innerHTML = 'Book a ride <span aria-hidden="true">↗</span>';
+    return;
+  }
+  if (!document.body.classList.contains('mobile-booking-open')) {
+    bookingToggle?.setAttribute('aria-expanded', 'false');
+  }
+}
+
+function toggleMobileBooking(open = !document.body.classList.contains('mobile-booking-open')) {
+  if (!mobileBookingMedia.matches) return false;
+  if (open) {
+    if (!document.body.classList.contains('mobile-booking-open')) browseScrollPosition = window.scrollY;
+    document.body.classList.add('mobile-booking-open');
+    bookingToggle?.setAttribute('aria-expanded', 'true');
+    if (bookingToggle) bookingToggle.innerHTML = 'Close booking <span aria-hidden="true">×</span>';
+    requestAnimationFrame(() => bookingCard?.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' }));
+  } else {
+    document.body.classList.remove('mobile-booking-open');
+    bookingToggle?.setAttribute('aria-expanded', 'false');
+    if (bookingToggle) bookingToggle.innerHTML = 'Book a ride <span aria-hidden="true">↗</span>';
+    window.scrollTo({ top: browseScrollPosition, behavior: reducedMotion ? 'auto' : 'smooth' });
+    bookingToggle?.focus({ preventScroll: true });
+  }
+  return true;
+}
+
+window.karwaOpenBooking = () => toggleMobileBooking(true);
+syncMobileBookingState();
+mobileBookingMedia.addEventListener('change', syncMobileBookingState);
+bookingToggle?.addEventListener('click', () => toggleMobileBooking());
+document.addEventListener('click', (event) => {
+  const link = event.target.closest('a[href="#booking"]');
+  if (!link || !mobileBookingMedia.matches) return;
+  event.preventDefault();
+  toggleMobileBooking(true);
+});
 
 function updateQuickVehicles(preserve = true) {
   const previous = preserve ? quickVehicle.value : '';

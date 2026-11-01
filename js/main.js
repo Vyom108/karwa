@@ -592,6 +592,7 @@ document.querySelectorAll('[data-vehicle]').forEach((button) => button.addEventL
   if ([...vehicleField.options].some((option) => option.value === requestedVehicle)) {
     vehicleField.value = requestedVehicle;
   }
+  window.karwaOpenBooking?.();
   document.querySelector('#booking').scrollIntoView({ behavior: 'smooth', block: 'start' });
   (requestedService ? dateField : serviceField).focus();
 }));
