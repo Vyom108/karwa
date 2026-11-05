@@ -1,58 +1,51 @@
 # Karwa Tours & Travels
 
-The website for Karwa Tours & Travels in Diu, Gujarat. Browse travel services and the listed fleet, then send a booking request for Karwa to review.
+The customer-facing website for Karwa Tours & Travels in Diu, Gujarat. Visitors can explore listed services, vehicles, and nearby places, then prepare a booking request for WhatsApp.
 
 Website: [karwatours.com](https://karwatours.com/)
 
-## Features
+## Booking and data
 
-- Responsive homepage with Diu-focused imagery and an automatic hero showcase of the 11 listed vehicle concepts.
-- Fleet browsing with vehicle filters and booking links.
-- Customer accounts, booking requests, booking status, and service terms.
-- Reviews for completed journeys, with moderation and publication handled through the existing review flow.
-- Separate admin sign-in and booking management pages.
-- Reduced-motion support, keyboard navigation, and accessible form feedback.
+- Booking requests are sent by the customer through WhatsApp after reviewing the prefilled message.
+- The website does not create customer accounts, accept website reviews, store booking data, or call Supabase.
+- A request is not a confirmed reservation. Karwa confirms availability and the final price directly.
+- Bike rental is listed at ₹700 for 12 hours; scooty rental is listed at ₹600 for 12 hours. Other prices are confirmed by Karwa.
+- Vehicle images are illustrative concepts and do not identify a specific Karwa vehicle.
 
-Vehicle images are illustrative concepts. A booking request is not a confirmed reservation; Karwa confirms availability and final price.
+The prior Supabase implementation and setup notes are retained under `legacy/` and `supabase/` as historical project material. They are not part of the live customer-facing application. The associated Supabase project has been paused; its data has not been deleted.
 
 ## Technology
 
-- Static HTML, CSS, and browser-native JavaScript modules; there is no frontend build step.
-- Supabase Auth and Postgres, with database access protected by Row Level Security.
-- `@supabase/supabase-js` loaded as a browser module from esm.sh.
-- Vercel hosting, connected to the GitHub `main` branch.
+- React 19, TypeScript, Vite, and Tailwind CSS 4.
+- Local images and fonts under `public/assets/` and Fontsource packages.
+- Hosted on Vercel; the intended production branch is `main`.
 
 ## Run locally
 
-Requirements: Python 3 for local static hosting. Node.js 18 or newer is needed to run the tests.
+Requirements: Node.js 20 or newer and pnpm.
 
 ```sh
-git clone https://github.com/Vyom108/karwa.git
-cd karwa
-python3 -m http.server 8000
+pnpm install
+pnpm dev
 ```
 
-Open [http://localhost:8000](http://localhost:8000).
-
-The browser client configuration is in `js/supabase-config.js`. To use your own Supabase project, set its project URL and publishable key there. The publishable key is intended for browser use; never put a Supabase service-role key in client code.
-
-Before applying database migrations to another Supabase project, review [SUPABASE_SETUP.md](SUPABASE_SETUP.md). Existing migration history may require reconciliation before using the Supabase CLI.
-
-## Tests
-
-Run the existing Node.js test suite with:
+Vite prints the local preview URL. Create a production build with:
 
 ```sh
-npm test
+pnpm build
 ```
 
 ## Project structure
 
-- `index.html` — customer-facing homepage and booking form
-- `admin-login.html`, `admin.html` — staff sign-in and booking management
-- `reset-password.html` — account password reset flow
-- `js/` — booking, authentication, fleet, animation, and page logic
-- `css/` — site, responsive, and admin styles
-- `assets/` — local fonts, vehicle concepts, and Diu photography
-- `supabase/migrations/` — database security and booking/review migrations
-- `terms.html`, `privacy.html`, `cancellation.html`, `refund.html` — customer policies
+- `src/App.tsx` — customer-facing pages, destination suggestions, and WhatsApp booking flow.
+- `src/lib/booking-validation.ts` — service options, vehicle options, required self-drive terms, and form validation.
+- `src/index.css` — palette, responsive layout, motion, hover, and reduced-motion styles.
+- `public/assets/images/` — logo, illustrative fleet images, and site photography.
+- `legacy/` — archived static implementation and its former account/admin integration.
+- `supabase/migrations/` — historical migrations from the former database-backed version; not applied as part of the current deployment.
+
+## Notes
+
+- Availability and pricing for a requested trip are confirmed by Karwa through WhatsApp.
+- Local Diu visitor suggestions do not guarantee that a ride is available to a particular location.
+- Somnath, Sasan Gir, and Dwarka appear in the current self-drive terms; route, availability, and fare still require confirmation.

@@ -6,7 +6,11 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Environment files and logs
+# Local environment, logs, dependencies, and build output
 .env
 .env.*
 *.log
+node_modules/
+dist/
+*.tsbuildinfo
+.vercel/
