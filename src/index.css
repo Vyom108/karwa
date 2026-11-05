@@ -144,4 +144,14 @@ main > section:not(.hero-shell):not(#destination) .display em { color: #193247; 
   .hero-shell { min-height: 530px; }
   .ticker-group { gap: 1.5rem; padding: .85rem 1rem; }
   .ticker-group span { gap: 1.5rem; font-size: .75rem; }
+  .section-pad { padding-top: 3.25rem; padding-bottom: 3.25rem; }
+  .section-pad h2.display { font-size: clamp(2.5rem, 10vw, 3rem); line-height: 1.04; }
+  .hero-shell .hero-title { font-size: clamp(3rem, 15vw, 3.75rem); }
+  .hero-photo .image-caption { top: .75rem; bottom: auto; left: .75rem; }
+  .hero-photo > div:last-child { right: .75rem; bottom: .75rem; max-width: 190px; padding: .75rem; }
+  .fleet-photo .image-caption { top: .5rem; bottom: auto; left: .5rem; padding: .34rem .48rem; font-size: .52rem; letter-spacing: .05em; white-space: nowrap; }
+  #fleet .fleet-card > div:last-child { min-height: 104px; flex-direction: column; align-items: stretch; gap: .75rem; padding: .75rem; }
+  .fleet-card:last-child:nth-child(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - .375rem); }
+  #contact a[href^="mailto:"] { min-width: 0; overflow-wrap: anywhere; }
+  #contact a[href^="mailto:"] svg { flex-shrink: 0; }
 }
